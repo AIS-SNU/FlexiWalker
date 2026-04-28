@@ -1,0 +1,37 @@
+build/
+time/
+
+*.bin
+*.edgelist
+
+*.o
+
+*.log
+*.ncu-rep
+
+*.tar
+
+generated/
+output/
+
+artifacts/
+__pycache__/
+
+.pdf
+
+# pytest
+.pytest_cache/
+tests/compiler/.last_run_output/
+
+# Paper artifacts (never publish)
+.paper_src/
+FlexiWalker.pdf
+*_Cam_Ready_*.zip
+
+# Dev artifacts
+compile_commands.json
+synchronization_warnings.txt
+.claude/
+
+# Superpowers brainstorming/specs/plans (dev-only)
+docs/superpowers/

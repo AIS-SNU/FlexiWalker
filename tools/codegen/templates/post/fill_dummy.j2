@@ -1,0 +1,10 @@
+__inline__ __device__ void {{ class_name }}::fill_dummy(TaskType* task, TaskType* dummy_task, int lid, int target_tid) {
+  if (lid == target_tid) {
+{% for field in all_fields %}
+    dummy_task->{{ field }} = task->{{ field }};
+{% endfor %}
+  }
+{% for field in all_fields %}
+  dummy_task->{{ field }} = __shfl_sync(FULL_WARP_MASK, dummy_task->{{ field }}, target_tid);
+{% endfor %}
+}

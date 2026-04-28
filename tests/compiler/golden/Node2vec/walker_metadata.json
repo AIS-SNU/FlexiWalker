@@ -1,0 +1,12 @@
+{
+  "Node2vec": {
+    "args": [
+      "g",
+      "0",
+      "0.5",
+      "0.5"
+    ],
+    "task_type": "Task",
+    "user_methods": []
+  }
+}

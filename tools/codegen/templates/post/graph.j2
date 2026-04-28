@@ -1,0 +1,79 @@
+#pragma once
+#include <gflags/gflags.h>
+#include <algorithm>
+#include <iostream>
+#include "util.cuh"
+#include "graph_base.cuh"
+#include "graph_config.cuh"
+
+// Auto-generated unified struct extensions
+{%- for walker in all_walkers %}
+DECLARE_bool({{ walker }});
+{%- endfor %}
+
+// Extension for struct graph
+class graph : public graph_base {
+ public:
+{%- for field_name, field_info in fields.items() %}
+  {{ field_info.data_type }}* {{ field_name }} = nullptr;
+{%- endfor %}
+
+ public:
+  ~graph() {
+{%- for field_name in fields.keys() %}
+    if ({{ field_name }}) delete[] {{ field_name }};
+{%- endfor %}
+  }
+
+  graph() : graph_base() {}
+
+  explicit graph(const char* xadj_file, const char* adjncy_file,
+                 const char* weight_file, const char* config_file = nullptr)
+      : graph_base(xadj_file, adjncy_file, weight_file) {
+
+    // Load runtime config for additional fields
+    GraphConfig config;
+    if (config_file != nullptr) {
+      config.load(config_file);
+    }
+{%- for field_name, field_info in fields.items() %}
+    // {{ field_name }} for {{ field_info.walkers | join(', ') }}
+    if ({{ field_info.walkers | map('add_flags_prefix') | join(' || ') }}) {
+{%- if field_info.source_type == 'file' %}
+      // Load from file
+      std::string field_path = config.get_path("{{ field_name }}");
+      if (field_path.empty()) {
+        std::cerr << "Error: {{ field_name }} path not configured for {{ field_info.walkers | join('/') }}" << std::endl;
+        std::cerr << "Please add '{{ field_name }} = /path/to/file' to your graph config" << std::endl;
+        exit(1);
+      }
+
+      FILE* file = fopen(field_path.c_str(), "rb");
+      if (file != NULL) {
+        size_t array_size = {% if field_info.size_type == 'node' %}vert_count{% else %}edge_count{% endif %};
+        {{ field_info.data_type }}* tmp_{{ field_name }} = NULL;
+        if (posix_memalign(reinterpret_cast<void**>(&tmp_{{ field_name }}), getpagesize(),
+                           sizeof({{ field_info.data_type }}) * array_size))
+          perror("posix_memalign");
+
+        size_t ret = fread(tmp_{{ field_name }}, sizeof({{ field_info.data_type }}), array_size, file);
+        assert(ret == array_size);
+        fclose(file);
+
+        {{ field_name }} = reinterpret_cast<{{ field_info.data_type }}*>(tmp_{{ field_name }});
+        std::cout << "Loaded {{ field_name }} from " << field_path << std::endl;
+      } else {
+        std::cerr << "Error: Cannot open {{ field_name }} file: " << field_path << std::endl;
+        exit(1);
+      }
+{%- elif field_info.source_type == 'init' %}
+      // Initialize with constant value
+      size_t array_size = {% if field_info.size_type == 'node' %}vert_count{% else %}edge_count{% endif %};
+      {{ field_name }} = new {{ field_info.data_type }}[array_size];
+      std::fill({{ field_name }}, {{ field_name }} + array_size, static_cast<{{ field_info.data_type }}>({{ field_info.init_value }}));
+      std::cout << "Initialized {{ field_name }} with value {{ field_info.init_value }}" << std::endl;
+{%- endif %}
+    }
+{%- endfor %}
+  }
+};

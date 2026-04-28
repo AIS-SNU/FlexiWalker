@@ -1,0 +1,52 @@
+{
+  "PPR_second": {
+    "branches": [
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "(1.0 - alpha)"
+      },
+      {
+        "body": [
+          "vtx_t degree = task->degree;",
+          "vtx_t prev_degree = task->prev_degree;",
+          "vtx_t max_degree = max(degree, prev_degree);"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "(1.0 - alpha) / degree * max_degree"
+      },
+      {
+        "body": [
+          "vtx_t degree = task->degree;",
+          "vtx_t prev_degree = task->prev_degree;",
+          "vtx_t max_degree = max(degree, prev_degree);"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "((1.0 - alpha) / degree + alpha / prev_degree) * max_degree"
+      },
+      {
+        "body": [
+          "vtx_t degree = task->degree;",
+          "vtx_t prev_degree = task->prev_degree;",
+          "vtx_t max_degree = max(degree, prev_degree);"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "(1.0 - alpha) / degree * max_degree"
+      }
+    ],
+    "task_fields": [
+      "degree",
+      "neighbor_offset",
+      "prev_degree",
+      "prev_vertex"
+    ]
+  }
+}

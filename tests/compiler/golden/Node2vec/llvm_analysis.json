@@ -1,0 +1,11 @@
+{
+  "Node2vec": {
+    "accessedByIndex": [],
+    "eRVS_only": false,
+    "externallyDefinedLocals": [],
+    "possibleZero": 0,
+    "returnFlag": 1,
+    "updateFlag": 0,
+    "updatedFields": []
+  }
+}

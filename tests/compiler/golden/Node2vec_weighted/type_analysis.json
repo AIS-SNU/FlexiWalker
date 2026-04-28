@@ -1,0 +1,56 @@
+{
+  "Node2vec_weighted": {
+    "accessedFieldNames": {
+      "gpu_graph_base": [
+        "adjwgt"
+      ]
+    },
+    "accessedFieldTypes": {
+      "class.gpu_graph_base": [
+        "weight_t *"
+      ]
+    },
+    "branches": [
+      {
+        "body": [
+          "weight_t w = graph->adjwgt_MAX[task->current_vertex];"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "w"
+      },
+      {
+        "body": [
+          "weight_t w = graph->adjwgt_MAX[task->current_vertex];"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "w / p"
+      },
+      {
+        "body": [
+          "weight_t w = graph->adjwgt_MAX[task->current_vertex];"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "w / q"
+      },
+      {
+        "body": [
+          "weight_t w = graph->adjwgt_MAX[task->current_vertex];"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "w"
+      }
+    ],
+    "task_fields": [
+      "neighbor_offset",
+      "prev_vertex"
+    ]
+  }
+}

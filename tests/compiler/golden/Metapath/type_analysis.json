@@ -1,0 +1,24 @@
+{
+  "Metapath": {
+    "branches": [
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "1.0"
+      },
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "0.0"
+      }
+    ],
+    "task_fields": [
+      "length",
+      "neighbor_offset"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "Node2vec_weighted": {
+    "accessedByIndex": [
+      [
+        "class.gpu_graph_base",
+        3
+      ]
+    ],
+    "eRVS_only": false,
+    "externallyDefinedLocals": [],
+    "possibleZero": 0,
+    "returnFlag": 3,
+    "updateFlag": 1,
+    "updatedFields": []
+  }
+}

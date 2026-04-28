@@ -1,0 +1,38 @@
+{
+  "Node2vec": {
+    "branches": [
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "1.0"
+      },
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "1.0 / p"
+      },
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "1.0 / q"
+      },
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "1.0"
+      }
+    ],
+    "task_fields": [
+      "neighbor_offset",
+      "prev_vertex"
+    ]
+  }
+}

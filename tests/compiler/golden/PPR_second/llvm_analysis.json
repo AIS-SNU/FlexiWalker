@@ -1,0 +1,11 @@
+{
+  "PPR_second": {
+    "accessedByIndex": [],
+    "eRVS_only": false,
+    "externallyDefinedLocals": [],
+    "possibleZero": 0,
+    "returnFlag": 2,
+    "updateFlag": 1,
+    "updatedFields": []
+  }
+}

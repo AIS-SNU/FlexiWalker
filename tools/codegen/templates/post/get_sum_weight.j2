@@ -1,0 +1,16 @@
+__inline__ __device__ weight_t {{ class_name }}::get_sum_weight(TaskType* task, int i) {
+{% for line in body %}
+    {{ line }}
+{% endfor %}
+    weight_t sum_val = {{ initial_expr }};
+{% for expr in remaining_exprs %}
+    sum_val += {{ expr }};
+{% endfor %}
+{% if needs_division %}
+    sum_val /= {{ num_terms }}.0;
+{% endif %}
+{% if multiply_by_degree %}
+    sum_val *= task->degree;
+{% endif %}
+    return sum_val;
+}

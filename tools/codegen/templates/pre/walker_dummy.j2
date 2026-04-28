@@ -1,0 +1,16 @@
+#include "app.cuh"
+#include "generated/gpu_graph.cuh"
+
+__global__ void dummy_kernel(gpu_graph* g, Task* t) {
+{% for class_name, meta in walkers.items() %}
+  {{ class_name }} w_{{ class_name }}({{ meta.args | join(", ") }});
+  {{ class_name }}::TaskType* task_ptr_{{ class_name }} = ({{ class_name }}::TaskType*)t;
+  __shared__ myrandStateArr state_{{ class_name }};
+  w_{{ class_name }}.get_weight(task_ptr_{{ class_name }}, 0);
+  w_{{ class_name }}.is_stop(task_ptr_{{ class_name }}->length, &state_{{ class_name }});
+  task_ptr_{{ class_name }}->update(g, 0);
+{% for method in meta.user_methods %}
+  w_{{ class_name }}.{{ method.name }}({{ method.args | join(", ") }});
+{% endfor %}
+{% endfor %}
+}

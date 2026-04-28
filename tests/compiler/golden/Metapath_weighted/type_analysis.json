@@ -1,0 +1,37 @@
+{
+  "Metapath_weighted": {
+    "accessedFieldNames": {
+      "gpu_graph_base": [
+        "adjwgt"
+      ]
+    },
+    "accessedFieldTypes": {
+      "class.gpu_graph_base": [
+        "weight_t *"
+      ]
+    },
+    "branches": [
+      {
+        "body": [
+          "edge_t offset = task->current_vertex;",
+          "weight_t w = graph->adjwgt_MAX[offset];"
+        ],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "w"
+      },
+      {
+        "body": [],
+        "fallback_reason": "",
+        "field_roles": [],
+        "force_eRVS_only": false,
+        "return_expr": "0.0"
+      }
+    ],
+    "task_fields": [
+      "length",
+      "neighbor_offset"
+    ]
+  }
+}

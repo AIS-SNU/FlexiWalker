@@ -1,0 +1,10 @@
+__inline__ __device__ weight_t {{ class_name }}::get_max_weight(TaskType* task, int i) {
+{% for line in body %}
+    {{ line }}
+{% endfor %}
+    weight_t max_val = {{ initial_expr }};
+{% for expr in remaining_exprs %}
+    max_val = max(max_val, {{ expr }});
+{% endfor %}
+    return max_val;
+}
